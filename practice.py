@@ -32,6 +32,25 @@ def list_intersection_finder(lists: list[list[int]]) -> list[int]:
     return list(set(intersections))
 
 
+def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
+    new = []
+    if lists:
+        new.append[lists[0][0]]
+    i = 0
+    g = 0
+    while (i < lists[i]):
+        f = 0
+        while (f < len(lists[i])):
+            new.append[lists[i][f]]
+            #  Aqui reiniciar la lista para las comprobaciones desde 0 cada vez que se agrega algo????
+            if (new[g] < new[g - 1]):
+                temp = new[g - 1]
+                new[g - 1] = new[g]
+                new[g] = temp
+            f += 1
+            g += 1
+
+
 if __name__ == "__main__":
 
     # ------------ TESTS FOR py_constellation_mapper -----------------------
