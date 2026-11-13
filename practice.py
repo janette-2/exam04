@@ -34,26 +34,47 @@ def list_intersection_finder(lists: list[list[int]]) -> list[int]:
 
 def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
     new = []
-    if lists:
-        new.append[lists[0][0]]
     i = 0
-    g = 0
-    while (i < lists[i]):
+    while (i < len(lists)):
         f = 0
         while (f < len(lists[i])):
-            new.append[lists[i][f]]
-            #  Aqui reiniciar la lista para las comprobaciones desde 0 cada vez que se agrega algo????
-            if (new[g] < new[g - 1]):
-                temp = new[g - 1]
-                new[g - 1] = new[g]
-                new[g] = temp
+            new.append(lists[i][f])
+            new = keep_ordering(new)
             f += 1
-            g += 1
+        i += 1
+    return new
+
+
+# AUX DE MERGE_SORTED_LISTS
+def keep_ordering(new: list[int]) -> list[int]:
+    i = len(new) - 1
+    last = new[i]
+    temp = new[i - 1]
+    while (last < temp and i > 0):
+        new[i - 1] = last
+        new[i] = temp
+        i -= 1
+        last = new[i]
+        temp = new[i - 1]
+    return new
+
+
+def palindrome_partitioner(s: str) -> int:
+    back = len(s) - 1
+    front = 0
+    while (back != 0 or front != len(s)):
+        if (s[front] != s[back]):
+            front = 0
+            back -= 1
+        else:
+            # if (front == len(s))
+            front += 1
+            back -= 1
+# crear aux que denomine si es palindromo una vez coincidan
 
 
 if __name__ == "__main__":
 
-    # ------------ TESTS FOR py_constellation_mapper -----------------------
     print("-------------py_constellation_mapper------------")
     print(constellation_mapper([(0, 0), (1, 1), (2, 2)], 3))
     print(constellation_mapper([(1, 1), (0, 1), (2, 1), (1, 0), (1, 2)], 3))
@@ -73,6 +94,18 @@ if __name__ == "__main__":
     print(list_intersection_finder([]))
     print(list_intersection_finder([[1, 2, 3], []]))
     print(list_intersection_finder([[5]]))
+    print("----------------------------------------------------")
+    print()
+    print()
+    print("-------------py_merge_sorted_lists---------------")
+    print(merge_sorted_lists([[1, 3, 5], [2, 4, 6]]))
+    print(merge_sorted_lists([[1, 5, 9], [2, 3, 8], [4, 6, 7]]))
+    print(merge_sorted_lists([[5], [1, 3], [2, 4]]))
+    print(merge_sorted_lists([[1, 1, 2], [2, 3, 3]]))
+    print(merge_sorted_lists([[], [1, 2, 3]]))
+    print(merge_sorted_lists([[]]))
+    print(merge_sorted_lists([[-5, -1, 0], [-3, 2, 4]]))
+    print(merge_sorted_lists([[10], [10], [10]]))
     print("----------------------------------------------------")
     print()
     print()
