@@ -62,15 +62,31 @@ def keep_ordering(new: list[int]) -> list[int]:
 def palindrome_partitioner(s: str) -> int:
     back = len(s) - 1
     front = 0
+    partitions = 0
     while (back != 0 or front != len(s)):
         if (s[front] != s[back]):
             front = 0
             back -= 1
+            partitions += 1
         else:
-            # if (front == len(s))
-            front += 1
-            back -= 1
-# crear aux que denomine si es palindromo una vez coincidan
+            res = is_palindrome(s[:back + 1])
+            if res:
+                # Separar la parte que resta del palindromo y volver a analizar ese cacho.
+    return partitions
+
+
+def is_palindrome(s: str) -> bool:
+    start = 0
+    end = len(s) - 1
+    while(start != end or end > 0 or start < len(s)):
+        if (s[start] == s[end]):
+            start += 1
+            end -= 1
+        else:
+            break
+    if (start == end):
+        return True
+    return False
 
 
 if __name__ == "__main__":
