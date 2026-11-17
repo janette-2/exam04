@@ -60,33 +60,18 @@ def keep_ordering(new: list[int]) -> list[int]:
 
 
 def palindrome_partitioner(s: str) -> int:
-    back = len(s) - 1
-    front = 0
-    partitions = 0
-    while (back != 0 or front != len(s)):
-        if (s[front] != s[back]):
-            front = 0
-            back -= 1
-            partitions += 1
-        else:
-            res = is_palindrome(s[:back + 1])
-            if res:
-                # Separar la parte que resta del palindromo y volver a analizar ese cacho.
-    return partitions
-
-
-def is_palindrome(s: str) -> bool:
-    start = 0
-    end = len(s) - 1
-    while(start != end or end > 0 or start < len(s)):
-        if (s[start] == s[end]):
-            start += 1
-            end -= 1
-        else:
-            break
-    if (start == end):
-        return True
-    return False
+    n = len(s)
+    dp = [0] + [999999999999999999999999999] * n
+    for end in range(1, n + 1):
+        for start in range(end):
+            substring = s[start:end]
+            if substring == substring[::-1]:
+                if start == 0:
+                    cuts = 0
+                else:
+                    cuts = dp[end - 1] + 1
+                dp[end] = min(dp[end], cuts)
+    return dp[n]
 
 
 if __name__ == "__main__":
@@ -122,6 +107,13 @@ if __name__ == "__main__":
     print(merge_sorted_lists([[]]))
     print(merge_sorted_lists([[-5, -1, 0], [-3, 2, 4]]))
     print(merge_sorted_lists([[10], [10], [10]]))
+    print("----------------------------------------------------")
+    print()
+    print()
+    print("-------------py_merge_sorted_lists---------------")
+    print(palindrome_partitioner("aab"))
+    print(palindrome_partitioner("aba"))
+    print(palindrome_partitioner("abc"))
     print("----------------------------------------------------")
     print()
     print()
