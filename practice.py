@@ -120,6 +120,21 @@ def package_dependency_resolver(packages: dict[str, list[str]]) -> list[str]:
     return result
 
 
+def sliding_window_maximum(nums: list[int], k: int) -> list[int]:
+    l_nums = len(nums)
+    start = 0
+    end = k
+    result = []
+    if k == 0:
+        return []
+    while end <= l_nums:
+        substring = nums[start:end]
+        result.append(max(substring))
+        start += 1
+        end += 1
+    return result
+
+
 if __name__ == "__main__":
 
     print("-------------py_constellation_mapper------------")
@@ -171,3 +186,15 @@ if __name__ == "__main__":
     print(package_dependency_resolver({"X": ["Y"], "Y": ["X"]}))
     print(package_dependency_resolver({"web": [], "api": [], "frontend":
                                        ["web"], "backend": ["api"]}))
+    print("----------------------------------------------------")
+    print()
+    print()
+    print("-------------py_sliding_window_maximum----------")
+    print(sliding_window_maximum([1, 3, -1, -3, 5, 3, 6, 7], 3))
+    print(sliding_window_maximum([1, 2, 3, 4, 5], 2))
+    print(sliding_window_maximum([5, 4, 3, 2, 1], 1))
+    print(sliding_window_maximum([1, 2, 3], 3))
+    print(sliding_window_maximum([1, 2, 3], 4))
+    print(sliding_window_maximum([], 2))
+    print(sliding_window_maximum([1, 2, 3], 0))
+    print("----------------------------------------------------")
