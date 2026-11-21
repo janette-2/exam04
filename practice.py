@@ -164,7 +164,8 @@ if __name__ == "__main__":
     print()
     print()
     print("-------------py_package_dependency_resolver----------")
-    print(package_dependency_resolver({"app": ["database"], "database": ["driver"], "driver": []}))
+    print(package_dependency_resolver({"app": ["database"], "database":
+                                      ["driver"], "driver": []}))
     print(package_dependency_resolver({"A": [], "B": ["A"], "C": ["A", "B"]}))
     print(package_dependency_resolver({}))
     print(package_dependency_resolver({"X": ["Y"], "Y": ["X"]}))
