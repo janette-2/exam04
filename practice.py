@@ -74,6 +74,52 @@ def palindrome_partitioner(s: str) -> int:
     return dp[n]
 
 
+def package_dependency_resolver(packages: dict[str, list[str]]) -> list[str]:
+    parents = {}
+    for package in packages:
+        parents[package] = []
+    for parent in parents:
+        for package, dependency in packages.items():
+            if package in packages:
+                if parent in dependency:
+                    parents[parent].append(package)
+    # print(f"Parents :{parents}")
+
+    remains = {}
+    for package in packages:
+        remains[package] = 0
+    for package in remains:
+        for key, dependency in packages.items():
+            if key == package:
+                for item in dependency:
+                    if item in packages:
+                        remains[package] += 1
+    # print(f"Remains :{remains}")
+
+    queue = []
+    for package, remain in remains.items():
+        if remain == 0:
+            queue.append(package)
+    # print(f"Queue Init: {queue}")
+
+    result = []
+    while queue:
+        # guardar el item en result y quitarlo de queue
+        processing = queue.pop(0)
+        result.append(processing)
+        # recorrer cada uno de los hijos del item a procesar
+        for son in parents[processing]:
+            # buscar el item a procesar en su entrada de remains
+            # restarle -1 a estos items
+            if remains[son] > 0:
+                remains[son] -= 1
+        # los que hayan quedado en remains == 0, añadirlos a queue
+        for son in parents[processing]:
+            if remains[son] == 0:
+                queue.append(son)
+    return result
+
+
 if __name__ == "__main__":
 
     print("-------------py_constellation_mapper------------")
@@ -110,10 +156,16 @@ if __name__ == "__main__":
     print("----------------------------------------------------")
     print()
     print()
-    print("-------------py_merge_sorted_lists---------------")
+    print("-------------py_palindrome_partitioner---------------")
     print(palindrome_partitioner("aab"))
     print(palindrome_partitioner("aba"))
     print(palindrome_partitioner("abc"))
     print("----------------------------------------------------")
     print()
     print()
+    print("-------------py_package_dependency_resolver----------")
+    print(package_dependency_resolver({"app": ["database"], "database": ["driver"], "driver": []}))
+    print(package_dependency_resolver({"A": [], "B": ["A"], "C": ["A", "B"]}))
+    print(package_dependency_resolver({}))
+    print(package_dependency_resolver({"X": ["Y"], "Y": ["X"]}))
+    print(package_dependency_resolver({"web": [], "api": [], "frontend": ["web"], "backend": ["api"]}))
