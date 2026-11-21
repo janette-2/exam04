@@ -169,4 +169,5 @@ if __name__ == "__main__":
     print(package_dependency_resolver({"A": [], "B": ["A"], "C": ["A", "B"]}))
     print(package_dependency_resolver({}))
     print(package_dependency_resolver({"X": ["Y"], "Y": ["X"]}))
-    print(package_dependency_resolver({"web": [], "api": [], "frontend": ["web"], "backend": ["api"]}))
+    print(package_dependency_resolver({"web": [], "api": [], "frontend":
+                                       ["web"], "backend": ["api"]}))
