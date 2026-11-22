@@ -1,3 +1,18 @@
+def array_rotation_detector(arr1: list, arr2: list) -> bool:
+    l_array = len(arr1)
+    options = []
+    ref = arr1
+    for i in range(l_array):
+        head = ref[0]
+        opt_i = ref[1:] + [head]
+        ref = opt_i
+        # print(opt_i)
+        options.append(opt_i)
+    if arr2 in options or (not arr1 and not arr2):
+        return True
+    return False
+
+
 def constellation_mapper(stars: list[tuple[int, int]], dim: int) -> list[str]:
     res = []
     i = 0
@@ -137,6 +152,15 @@ def sliding_window_maximum(nums: list[int], k: int) -> list[int]:
 
 if __name__ == "__main__":
 
+    print("-------------py_array_rotation_detector------------")
+    print(array_rotation_detector([1, 2, 3, 4, 5], [4, 5, 1, 2, 3]))
+    print(array_rotation_detector([1, 2, 3, 4, 5], [5, 1, 2, 3, 4]))
+    print(array_rotation_detector([1, 2, 3], [3, 2, 1]))
+    print(array_rotation_detector([1, 2, 3], [3, 2, 1]))
+    print(array_rotation_detector([], []))
+    print("---------------------------------------------------")
+    print()
+    print()
     print("-------------py_constellation_mapper------------")
     print(constellation_mapper([(0, 0), (1, 1), (2, 2)], 3))
     print(constellation_mapper([(1, 1), (0, 1), (2, 1), (1, 0), (1, 2)], 3))
